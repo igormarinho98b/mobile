@@ -1,38 +1,21 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
+import 'react-native-gesture-handler';
 
 import React from 'react';
-import {CustomView} from '../styles';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  Text,
-  useColorScheme,
-} from 'react-native';
+import {View, StatusBar} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import Routes from './routes';
 
+import AppProvider from './hooks';
 
+const App: React.FC = () => (
+  <NavigationContainer>
+    <StatusBar barStyle="light-content" backgroundColor="#312e38" />
+    <AppProvider>
+      <View style={{backgroundColor: '#312e38', flex: 1}}>
+        <Routes />
+      </View>
+    </AppProvider>
+  </NavigationContainer>
+);
 
-const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-
-  return (
-    <SafeAreaView>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <CustomView>
-          <Text>Projeto de conclusão</Text>
-        </CustomView>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
 export default App;
