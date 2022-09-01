@@ -1,5 +1,7 @@
-import metrics from './metrics'
+import metrics from './metrics';
+import colors from './colors';
 
 export default {
-  metrics
-}
+  metrics,
+  colors,
+};

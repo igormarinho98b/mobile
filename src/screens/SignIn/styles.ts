@@ -43,7 +43,7 @@ export const LoginText = styled.Text`
   color: #fff;
   width: 190px;
   right: 48px;
-  bottom: 40px;
+  bottom: 50px;
   letter-spacing: 1.3px;
 `;
 
@@ -51,5 +51,16 @@ export const InputsWrapper = styled.View`
   width: 100%;
   justify-content: space-between;
   padding: 0 15px;
-  bottom: 60px;
+  bottom: 80px;
+`;
+
+export const InputView = styled.View`
+  height: 55px;
+`;
+
+export const ButtonView = styled.View`
+  bottom: ${getBottomSpace() + 40}px;
+  justify-content: space-between;
+  height: 120px;
+  padding: 0 15px;
 `;

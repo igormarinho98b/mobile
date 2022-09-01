@@ -1,7 +1,7 @@
 import React from 'react';
-import {Text} from 'react-native';
 
 import Input from 'src/components/Input';
+import Button from 'src/components/Button';
 
 import {
   Container,
@@ -11,6 +11,8 @@ import {
   SubTitle,
   LoginText,
   InputsWrapper,
+  InputView,
+  ButtonView,
 } from './styles';
 
 const SignIn: React.FC = () => {
@@ -28,9 +30,19 @@ const SignIn: React.FC = () => {
 
       <BottomContainer>
         <InputsWrapper>
-          <Input />
-          <Input />
+          <InputView>
+            <Input placeholder="E-mail" />
+          </InputView>
+
+          <InputView>
+            <Input placeholder="Senha" />
+          </InputView>
         </InputsWrapper>
+
+        <ButtonView>
+          <Button>Entrar</Button>
+          <Button>Cadastrar</Button>
+        </ButtonView>
       </BottomContainer>
     </Container>
   );
