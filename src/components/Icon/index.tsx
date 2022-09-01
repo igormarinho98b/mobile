@@ -1,20 +1,20 @@
-import React from 'react'
-import { createIconSet } from 'react-native-vector-icons'
+import React from 'react';
+import {createIconSet} from 'react-native-vector-icons';
 
-import { useTheme } from 'styled-components/native'
+import {useTheme} from 'styled-components/native';
 
-import awesomeicons from './resources/awesomeicons.json'
+import awesomeicons from './resources/awesomeicons.json';
 
-const RNIcon = createIconSet(awesomeicons, 'awesomeicons', 'awesomeicons.ttf')
+const RNIcon = createIconSet(awesomeicons, 'awesomeicons', 'awesomeicons.ttf');
 
 export interface OwnProps {
-  name: string
-  size?: number
-  color?: string
+  name: string;
+  size?: number;
+  color?: string;
 }
 
-function Icon({ name, color, size }: OwnProps) {
-  const theme = useTheme()
+function Icon({name, color, size}: OwnProps) {
+  const theme = useTheme();
 
   return (
     <RNIcon
@@ -22,7 +22,7 @@ function Icon({ name, color, size }: OwnProps) {
       name={name}
       size={size || 30}
     />
-  )
+  );
 }
 
-export default Icon
+export default Icon;

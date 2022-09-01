@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import Input from 'src/components/Input';
 import Button from 'src/components/Button';
@@ -14,8 +14,22 @@ import {
   InputView,
   ButtonView,
 } from './styles';
+import {useAuth} from 'src/hooks/auth';
 
 const SignIn: React.FC = () => {
+  const {signIn} = useAuth();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  function handleSignIn() {
+    if (email && password) {
+      setIsLoading(true);
+      signIn({email, password}).finally(() => setIsLoading(false));
+    }
+  }
+
   return (
     <Container>
       <UpperContainer>
@@ -31,16 +45,30 @@ const SignIn: React.FC = () => {
       <BottomContainer>
         <InputsWrapper>
           <InputView>
-            <Input placeholder="E-mail" />
+            <Input
+              value={email}
+              onChangeText={(text) => setEmail(text)}
+              placeholder="E-mail"
+              autoComplete="email"
+              keyboardType="email-address"
+            />
           </InputView>
 
           <InputView>
-            <Input placeholder="Senha" />
+            <Input
+              value={password}
+              onChangeText={(text) => setPassword(text)}
+              placeholder="Senha"
+              autoComplete="password"
+              isPassword
+            />
           </InputView>
         </InputsWrapper>
 
         <ButtonView>
-          <Button>Entrar</Button>
+          <Button loading={isLoading} onPress={() => handleSignIn()}>
+            Entrar
+          </Button>
           <Button>Cadastrar</Button>
         </ButtonView>
       </BottomContainer>

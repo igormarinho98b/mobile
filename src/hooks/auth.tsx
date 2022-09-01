@@ -34,10 +34,7 @@ export function AuthProvider({children}) {
 
   useEffect(() => {
     async function loadStoragedData(): Promise<void> {
-      const [token, user] = await AsyncStorage.multiGet([
-        '@GoBarber:token',
-        '@GoBarber:user',
-      ]);
+      const [token, user] = await AsyncStorage.multiGet(['token', 'user']);
 
       // asyncStorage multget returns an key/value pair
       // thats why it's fixed on position 1
@@ -52,7 +49,7 @@ export function AuthProvider({children}) {
   }, []);
 
   const signIn = useCallback(async ({email, password}) => {
-    const response = await api.post('sessions', {
+    const response = await api.post('api/v1/auth/login', {
       email,
       password,
     });
@@ -60,15 +57,15 @@ export function AuthProvider({children}) {
     const {token, user} = response.data;
 
     await AsyncStorage.multiSet([
-      ['@GoBarber:user', JSON.stringify(user)],
-      ['@GoBarber:token', token],
+      ['user', JSON.stringify(user)],
+      ['token', token],
     ]);
 
     setData({token, user});
   }, []);
 
   const signOut = useCallback(async () => {
-    await AsyncStorage.multiRemove(['@GoBarber:token', '@GoBarber:user']);
+    await AsyncStorage.multiRemove(['token', 'user']);
 
     setData({} as AuthState);
   }, []);
