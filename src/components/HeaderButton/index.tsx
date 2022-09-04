@@ -1,20 +1,20 @@
-import React, { useMemo } from 'react'
-import { ActivityIndicator } from 'react-native'
+import React, {useMemo} from 'react';
+import {ActivityIndicator} from 'react-native';
 
-import { transparentize } from 'polished'
-import { useTheme } from 'styled-components/native'
+import {transparentize} from 'polished';
+import {useTheme} from 'styled-components/native';
 
-import Icon from '../Icon'
-import { Container } from './styles'
+import Icon from '../Icon';
+import {Container} from './styles';
 
 interface OwnProps {
   icon: {
-    name: string
-  }
-  onPress?: () => void
-  disabled?: boolean
-  loading?: boolean
-  alignedTo?: 'right' | 'left'
+    name: string;
+  };
+  onPress?: () => void;
+  disabled?: boolean;
+  loading?: boolean;
+  alignedTo?: 'right' | 'left';
 }
 
 function HeaderButton({
@@ -22,13 +22,13 @@ function HeaderButton({
   onPress,
   loading = false,
   disabled = false,
-  alignedTo = 'right'
+  alignedTo = 'right',
 }: OwnProps) {
-  const theme = useTheme()
+  const theme = useTheme();
 
   const isDisabled = useMemo(() => {
-    return loading || disabled
-  }, [disabled, loading])
+    return loading || disabled;
+  }, [disabled, loading]);
 
   return (
     <Container alignedTo={alignedTo} disabled={isDisabled} onPress={onPress}>
@@ -45,7 +45,7 @@ function HeaderButton({
         />
       )}
     </Container>
-  )
+  );
 }
 
-export default HeaderButton
+export default HeaderButton;

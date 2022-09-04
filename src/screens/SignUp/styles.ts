@@ -8,6 +8,10 @@ export const Container = styled.View`
   justify-content: center;
 `;
 
+export const GoBackButtonWrapper = styled.View`
+  width: 100%;
+`;
+
 export const UpperContainer = styled.View`
   flex: 3;
   background-color: #0154c6;
@@ -36,24 +40,15 @@ export const SubTitle = styled.Text`
   font-weight: 500;
   line-height: 40px;
   width: ${Dimensions.get('screen').width * 0.6}px;
-`;
-
-export const LoginText = styled.Text`
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-  color: #fff;
-  width: 190px;
-  right: 48px;
-  bottom: 50px;
-  letter-spacing: 1.3px;
+  bottom: 120px;
+  left: -30px;
 `;
 
 export const InputsWrapper = styled.View`
   width: 100%;
   justify-content: space-between;
   padding: 0 15px;
-  bottom: 80px;
+  bottom: 180px;
 `;
 
 export const InputView = styled.View`
@@ -61,7 +56,7 @@ export const InputView = styled.View`
 `;
 
 export const ButtonView = styled.View`
-  bottom: ${getBottomSpace() + Dimensions.get('screen').height * 0.05}px;
+  bottom: ${getBottomSpace() + Dimensions.get('screen').height * 0.15}px;
   justify-content: space-between;
   height: ${Dimensions.get('screen').height * 0.14}px;
   padding: 0 15px;

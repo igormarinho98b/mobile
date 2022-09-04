@@ -16,7 +16,7 @@ import {
 } from './styles';
 import {useAuth} from 'src/hooks/auth';
 
-const SignIn: React.FC = () => {
+const SignIn: React.FC = ({navigation}: any) => {
   const {signIn} = useAuth();
 
   const [email, setEmail] = useState('');
@@ -69,7 +69,13 @@ const SignIn: React.FC = () => {
           <Button loading={isLoading} onPress={() => handleSignIn()}>
             Entrar
           </Button>
-          <Button>Cadastrar</Button>
+          <Button
+            onPress={() => {
+              console.log('Navigation');
+              navigation.navigate('SignUp');
+            }}>
+            Cadastrar
+          </Button>
         </ButtonView>
       </BottomContainer>
     </Container>
