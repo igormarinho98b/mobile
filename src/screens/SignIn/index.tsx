@@ -26,7 +26,12 @@ const SignIn: React.FC = ({navigation}: any) => {
   function handleSignIn() {
     if (email && password) {
       setIsLoading(true);
-      signIn({email, password}).finally(() => setIsLoading(false));
+      signIn({email, password})
+        .then((data) => {
+          console.log(data, 'DATA');
+        })
+        .catch((err) => console.log(err, 'ERROR MANO'))
+        .finally(() => setIsLoading(false));
     }
   }
 

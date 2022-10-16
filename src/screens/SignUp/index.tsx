@@ -3,6 +3,8 @@ import React, {useState} from 'react';
 import Input from 'src/components/Input';
 import Button from 'src/components/Button';
 
+import api from 'src/services/api';
+
 import {
   Container,
   UpperContainer,
@@ -18,6 +20,17 @@ const SignUp: React.FC = ({navigation}: any) => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+
+  function handleSignUp() {
+    api
+      .post('/v1/auth/signup', {
+        name,
+        email,
+        password,
+      })
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err));
+  }
 
   return (
     <Container>
@@ -37,6 +50,7 @@ const SignUp: React.FC = ({navigation}: any) => {
               placeholder="Nome"
             />
           </InputView>
+
           <InputView>
             <Input
               value={email}
@@ -59,7 +73,7 @@ const SignUp: React.FC = ({navigation}: any) => {
         </InputsWrapper>
 
         <ButtonView>
-          <Button>Cadastrar</Button>
+          <Button onPress={() => handleSignUp()}>Cadastrar</Button>
           <Button
             onPress={() => {
               navigation.goBack();

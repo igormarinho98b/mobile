@@ -17,10 +17,10 @@ interface SignInCredentials {
 
 interface AuthState {
   token: string;
-  user: object;
+  user: string;
 }
 interface AuthContextData {
-  user: object;
+  user: string;
   loading: boolean;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
@@ -40,7 +40,7 @@ export function AuthProvider({children}) {
       // thats why it's fixed on position 1
       // because I just want the value
       if (token[1] && user[1]) {
-        setData({token: token[1], user: JSON.parse(user[1])});
+        setData({token: token[1], user: user[1]});
       }
       setLoading(false);
     }
@@ -49,19 +49,26 @@ export function AuthProvider({children}) {
   }, []);
 
   const signIn = useCallback(async ({email, password}) => {
-    const response = await api.post('api/v1/auth/login', {
-      email,
-      password,
-    });
+    try {
+      const {data: dataResponse} = await api.post('/v1/auth/login', {
+        email,
+        password,
+      });
 
-    const {token, user} = response.data;
+      const user = dataResponse.token.payload.preferred_username;
+      const token = dataResponse.token.jwtToken;
 
-    await AsyncStorage.multiSet([
-      ['user', JSON.stringify(user)],
-      ['token', token],
-    ]);
+      await AsyncStorage.multiSet([
+        ['user', user],
+        ['token', token],
+      ]);
 
-    setData({token, user});
+      setData({token, user});
+
+      return {user, token};
+    } catch (err) {
+      return err;
+    }
   }, []);
 
   const signOut = useCallback(async () => {
