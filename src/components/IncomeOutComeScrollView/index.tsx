@@ -26,7 +26,7 @@ const IncomeOutComeScrollView: React.FC = () => {
 
   return (
     <Container horizontal={true}>
-      {options &&
+      {options.length &&
         options.map((option, index) => (
           <IncomeOutComeCard
             key={index}

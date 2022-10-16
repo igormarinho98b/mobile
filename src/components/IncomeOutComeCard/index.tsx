@@ -6,7 +6,14 @@ import {
   BalanceText,
   LastUpdatedOperationText,
   TextsWrapper,
+  FirstRowWrapper,
 } from './styles';
+
+import {
+  faArrowAltCircleUp,
+  faArrowAltCircleDown,
+} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 
 interface IIncomeOutComeCard {
   operationText: 'Entradas' | 'Saídas';
@@ -22,12 +29,28 @@ const IncomeOutComeCard: React.FC<IIncomeOutComeCard> = ({
   const translator = (text: string): string => {
     return text === 'Entradas' ? 'entrada' : 'saída';
   };
+
+  const numberFormatter = (value: number | string): string => {
+    return value.toLocaleString(undefined, {minimumFractionDigits: 2});
+  };
+
   return (
     <Container>
-      <OperationText>{operationText}</OperationText>
+      <FirstRowWrapper>
+        <OperationText>{operationText}</OperationText>
+        <FontAwesomeIcon
+          icon={
+            operationText === 'Entradas'
+              ? faArrowAltCircleUp
+              : faArrowAltCircleDown
+          }
+          color={operationText === 'Entradas' ? '#12A454' : '#E83F5B'}
+          size={20}
+        />
+      </FirstRowWrapper>
 
       <TextsWrapper>
-        <BalanceText>R$ {balance.toLocaleString()}</BalanceText>
+        <BalanceText>R$ {numberFormatter(balance)}</BalanceText>
         <LastUpdatedOperationText>
           {`Última ${translator(operationText)} ${lastUpdate}`}
         </LastUpdatedOperationText>

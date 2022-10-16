@@ -32,3 +32,9 @@ export const LastUpdatedOperationText = styled.Text`
   line-height: 14px;
   color: #969cb2;
 `;
+
+export const FirstRowWrapper = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;

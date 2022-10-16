@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import {getBottomSpace, getStatusBarHeight} from 'react-native-iphone-x-helper';
 import {Platform} from 'react-native';
 
 export const Container = styled.View`
@@ -20,5 +19,12 @@ export const HelloUser = styled.Text`
 
 export const Header = styled.View`
   justify-content: space-between;
+  flex-direction: row;
+`;
+
+export const TopHeaderIconsWrapper = styled.View`
+  width: 60px;
+  justify-content: space-between;
+  align-items: center;
   flex-direction: row;
 `;
