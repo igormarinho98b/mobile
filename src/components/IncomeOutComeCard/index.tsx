@@ -19,12 +19,14 @@ interface IIncomeOutComeCard {
   operationText: 'Entradas' | 'Saídas';
   balance: number | string;
   lastUpdate: Date | string;
+  canSeeBalance?: boolean;
 }
 
 const IncomeOutComeCard: React.FC<IIncomeOutComeCard> = ({
   operationText,
   balance,
   lastUpdate,
+  canSeeBalance,
 }) => {
   const translator = (text: string): string => {
     return text === 'Entradas' ? 'entrada' : 'saída';
@@ -32,6 +34,18 @@ const IncomeOutComeCard: React.FC<IIncomeOutComeCard> = ({
 
   const numberFormatter = (value: number | string): string => {
     return value.toLocaleString(undefined, {minimumFractionDigits: 2});
+  };
+
+  const handleCanSeeBalance = () => {
+    const balanceDigitsLength = balance.toString().length;
+    if (!canSeeBalance) {
+      let finalString = '';
+      for (let i = 0; i <= balanceDigitsLength; i++) {
+        finalString += '*';
+      }
+      return finalString;
+    }
+    return numberFormatter(balance);
   };
 
   return (
@@ -50,7 +64,7 @@ const IncomeOutComeCard: React.FC<IIncomeOutComeCard> = ({
       </FirstRowWrapper>
 
       <TextsWrapper>
-        <BalanceText>R$ {numberFormatter(balance)}</BalanceText>
+        <BalanceText>R$ {handleCanSeeBalance()}</BalanceText>
         <LastUpdatedOperationText>
           {`Última ${translator(operationText)} ${lastUpdate}`}
         </LastUpdatedOperationText>

@@ -35,7 +35,7 @@ const Dashboard: React.FC = () => {
         <Header>
           <HelloUser>
             Olá,{'\n'}
-            <TextBold>{user}</TextBold>
+            <TextBold>{user.name}</TextBold>
           </HelloUser>
 
           <TopHeaderIconsWrapper>
@@ -48,7 +48,7 @@ const Dashboard: React.FC = () => {
           </TopHeaderIconsWrapper>
         </Header>
 
-        <IncomeOutComeScrollView />
+        <IncomeOutComeScrollView canSeeBalance={canSeeBalance} />
       </Container>
     </SafeAreaView>
   );

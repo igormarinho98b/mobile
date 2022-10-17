@@ -17,10 +17,16 @@ interface SignInCredentials {
 
 interface AuthState {
   token: string;
-  user: string;
+  user: {
+    name: string;
+    id: string;
+  };
 }
 interface AuthContextData {
-  user: string;
+  user: {
+    name: string;
+    id: string;
+  };
   loading: boolean;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
@@ -39,8 +45,9 @@ export function AuthProvider({children}) {
       // asyncStorage multget returns an key/value pair
       // thats why it's fixed on position 1
       // because I just want the value
+      console.log(user);
       if (token[1] && user[1]) {
-        setData({token: token[1], user: user[1]});
+        setData({token: token[1], user: JSON.parse(user[1])});
       }
       setLoading(false);
     }
@@ -55,7 +62,12 @@ export function AuthProvider({children}) {
         password,
       });
 
-      const user = dataResponse.token.payload.preferred_username;
+      console.log(dataResponse, 'data resposne');
+
+      const user = JSON.stringify({
+        name: dataResponse.token.payload.preferred_username,
+        id: dataResponse.userId,
+      });
       const token = dataResponse.token.jwtToken;
 
       await AsyncStorage.multiSet([
@@ -63,7 +75,7 @@ export function AuthProvider({children}) {
         ['token', token],
       ]);
 
-      setData({token, user});
+      setData({token, user: JSON.parse(user)});
 
       return {user, token};
     } catch (err) {

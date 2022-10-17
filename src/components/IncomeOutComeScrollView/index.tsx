@@ -10,7 +10,13 @@ interface IIncomeOutComeCard {
   lastUpdate: Date | string;
 }
 
-const IncomeOutComeScrollView: React.FC = () => {
+interface IIncomeOutComeScrollView {
+  canSeeBalance?: boolean;
+}
+
+const IncomeOutComeScrollView: React.FC<IIncomeOutComeScrollView> = ({
+  canSeeBalance,
+}) => {
   const options: IIncomeOutComeCard[] = [
     {
       balance: 17400,
@@ -33,6 +39,7 @@ const IncomeOutComeScrollView: React.FC = () => {
             balance={option.balance}
             operationText={option.operationText}
             lastUpdate={option.lastUpdate}
+            canSeeBalance={canSeeBalance}
           />
         ))}
     </Container>
