@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {TouchableOpacity, SafeAreaView} from 'react-native';
 
 import {faPowerOff, faEye} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+
+import {getUserIncomeBalance, getUserOutcomeBalance} from './service';
 
 import {useAuth} from 'src/hooks/auth';
 
@@ -24,10 +26,27 @@ const safeAreStyles = {
 const Dashboard: React.FC = () => {
   const {user, signOut} = useAuth();
   const [canSeeBalance, setCanSeeBalance] = useState(false);
+  const [incomeBalance, setIncomeBalance] = useState(0);
+  const [outcomeBalance, setOutcomeBalance] = useState(0);
 
   const handleCanSeeBalance = () => {
     setCanSeeBalance(!canSeeBalance);
   };
+
+  const fetchIncomeBalance = useCallback(async () => {
+    const {data} = await getUserIncomeBalance(user.id);
+    setIncomeBalance(data);
+  }, [user.id]);
+
+  const fetchOutcomeBalance = useCallback(async () => {
+    const {data} = await getUserOutcomeBalance(user.id);
+    setOutcomeBalance(data);
+  }, [user.id]);
+
+  useEffect(() => {
+    Promise.all([fetchIncomeBalance, fetchOutcomeBalance]);
+    fetchIncomeBalance();
+  }, [fetchIncomeBalance, fetchOutcomeBalance]);
 
   return (
     <SafeAreaView style={{...safeAreStyles}}>
@@ -48,7 +67,11 @@ const Dashboard: React.FC = () => {
           </TopHeaderIconsWrapper>
         </Header>
 
-        <IncomeOutComeScrollView canSeeBalance={canSeeBalance} />
+        <IncomeOutComeScrollView
+          canSeeBalance={canSeeBalance}
+          incomeBalance={incomeBalance}
+          outComeBalance={outcomeBalance}
+        />
       </Container>
     </SafeAreaView>
   );

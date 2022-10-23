@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 
 import Input from 'src/components/Input';
 import Button from 'src/components/Button';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import {
   Container,
@@ -36,54 +37,56 @@ const SignIn: React.FC = ({navigation}: any) => {
   }
 
   return (
-    <Container>
-      <UpperContainer>
-        <Title>MyFinances</Title>
-        <SubTitle>
-          Tenha VOCÊ o controle do seu dinheiro...e da sua vida!
-        </SubTitle>
-        <LoginText>
-          Faça seu LOGIN usando suas credenciais logo abaixo
-        </LoginText>
-      </UpperContainer>
+    <KeyboardAwareScrollView>
+      <Container>
+        <UpperContainer>
+          <Title>MyFinances</Title>
+          <SubTitle>
+            Tenha VOCÊ o controle do seu dinheiro...e da sua vida!
+          </SubTitle>
+          <LoginText>
+            Faça seu LOGIN usando suas credenciais logo abaixo
+          </LoginText>
+        </UpperContainer>
 
-      <BottomContainer>
-        <InputsWrapper>
-          <InputView>
-            <Input
-              value={email}
-              onChangeText={(text) => setEmail(text)}
-              placeholder="E-mail"
-              autoComplete="email"
-              keyboardType="email-address"
-            />
-          </InputView>
+        <BottomContainer>
+          <InputsWrapper>
+            <InputView>
+              <Input
+                value={email}
+                onChangeText={(text) => setEmail(text)}
+                placeholder="E-mail"
+                autoComplete="email"
+                keyboardType="email-address"
+              />
+            </InputView>
 
-          <InputView>
-            <Input
-              value={password}
-              onChangeText={(text) => setPassword(text)}
-              placeholder="Senha"
-              autoComplete="password"
-              isPassword
-            />
-          </InputView>
-        </InputsWrapper>
+            <InputView>
+              <Input
+                value={password}
+                onChangeText={(text) => setPassword(text)}
+                placeholder="Senha"
+                autoComplete="password"
+                isPassword
+              />
+            </InputView>
+          </InputsWrapper>
 
-        <ButtonView>
-          <Button loading={isLoading} onPress={() => handleSignIn()}>
-            Entrar
-          </Button>
-          <Button
-            onPress={() => {
-              console.log('Navigation');
-              navigation.navigate('SignUp');
-            }}>
-            Cadastrar
-          </Button>
-        </ButtonView>
-      </BottomContainer>
-    </Container>
+          <ButtonView>
+            <Button loading={isLoading} onPress={() => handleSignIn()}>
+              Entrar
+            </Button>
+            <Button
+              onPress={() => {
+                console.log('Navigation');
+                navigation.navigate('SignUp');
+              }}>
+              Cadastrar
+            </Button>
+          </ButtonView>
+        </BottomContainer>
+      </Container>
+    </KeyboardAwareScrollView>
   );
 };
 
