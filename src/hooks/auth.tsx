@@ -30,6 +30,7 @@ interface AuthContextData {
   loading: boolean;
   signIn(credentials: SignInCredentials): Promise<void>;
   signOut(): void;
+  token: string;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -45,7 +46,6 @@ export function AuthProvider({children}) {
       // asyncStorage multget returns an key/value pair
       // thats why it's fixed on position 1
       // because I just want the value
-      console.log(user);
       if (token[1] && user[1]) {
         setData({token: token[1], user: JSON.parse(user[1])});
       }
@@ -62,13 +62,13 @@ export function AuthProvider({children}) {
         password,
       });
 
-      console.log(dataResponse, 'data resposne');
-
       const user = JSON.stringify({
         name: dataResponse.token.payload.preferred_username,
         id: dataResponse.userId,
       });
       const token = dataResponse.token.jwtToken;
+
+      api.defaults.headers.common.Authorization = `Bearer ${token}`;
 
       await AsyncStorage.multiSet([
         ['user', user],
@@ -88,8 +88,10 @@ export function AuthProvider({children}) {
 
     setData({} as AuthState);
   }, []);
+
   return (
-    <AuthContext.Provider value={{user: data.user, signIn, signOut, loading}}>
+    <AuthContext.Provider
+      value={{user: data.user, signIn, signOut, loading, token: data.token}}>
       {children}
     </AuthContext.Provider>
   );

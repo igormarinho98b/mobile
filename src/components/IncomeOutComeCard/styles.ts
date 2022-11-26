@@ -38,3 +38,14 @@ export const FirstRowWrapper = styled.View`
   justify-content: space-between;
   align-items: center;
 `;
+
+export const CadastrarTextWrapper = styled.View`
+  align-items: flex-end;
+  margin-top: 10px;
+`;
+
+export const CadastrarOpacity = styled.TouchableOpacity``;
+
+export const CadastrarText = styled.Text`
+  color: #12a454;
+`;

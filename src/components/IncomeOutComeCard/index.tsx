@@ -7,7 +7,12 @@ import {
   LastUpdatedOperationText,
   TextsWrapper,
   FirstRowWrapper,
+  CadastrarTextWrapper,
+  CadastrarText,
+  CadastrarOpacity,
 } from './styles';
+
+import {useNavigation} from '@react-navigation/native';
 
 import {
   faArrowAltCircleUp,
@@ -28,6 +33,7 @@ const IncomeOutComeCard: React.FC<IIncomeOutComeCard> = ({
   lastUpdate,
   canSeeBalance,
 }) => {
+  const navigate = useNavigation();
   const translator = (text: string): string => {
     return text === 'Entradas' ? 'entrada' : 'saída';
   };
@@ -69,6 +75,23 @@ const IncomeOutComeCard: React.FC<IIncomeOutComeCard> = ({
           {`Última ${translator(operationText)} ${lastUpdate}`}
         </LastUpdatedOperationText>
       </TextsWrapper>
+
+      <CadastrarTextWrapper>
+        <CadastrarOpacity
+          onPress={() =>
+            navigate.navigate('Cadastrar', {
+              operationText:
+                operationText === 'Entradas' ? 'income' : 'outcome',
+            })
+          }>
+          <CadastrarText
+            styles={{
+              color: `${operationText === 'Entradas' ? '#12A454' : '#E83F5B'}`,
+            }}>
+            Cadastrar
+          </CadastrarText>
+        </CadastrarOpacity>
+      </CadastrarTextWrapper>
     </Container>
   );
 };
