@@ -8,7 +8,7 @@ import RadioGroup from 'react-native-radio-buttons-group';
 import {getCategories, incomeCreate, outcome} from './services';
 import {useAuth} from 'src/hooks/auth';
 
-import {useNavigation, NavigationAction} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 interface ICategories {
   id: string;
@@ -16,7 +16,7 @@ interface ICategories {
 }
 
 const Cadastrar = ({route}) => {
-  const {user} = useAuth();
+  const {user, token} = useAuth();
   const {operationText} = route.params;
   const navigation = useNavigation();
 
@@ -28,18 +28,18 @@ const Cadastrar = ({route}) => {
   const [value, setValue] = useState('');
 
   function onPressRadioButton(radioButtonsArray) {
-    const category = radioButtonsArray.filter((category) => category.selected);
-    setCategory(category[0].id);
+    const categoryFiltered = radioButtonsArray.filter((c) => c.selected);
+    setCategory(categoryFiltered[0].id);
   }
 
   async function handleCategories() {
-    const {data} = await getCategories();
+    const {data} = await getCategories(token);
 
-    const mapped = data.map((category) => {
+    const mapped = data.map((c) => {
       return {
-        id: category.id,
-        label: category.name,
-        value: category.id,
+        id: c.id,
+        label: c.name,
+        value: c.id,
       };
     });
     setCategories(mapped);

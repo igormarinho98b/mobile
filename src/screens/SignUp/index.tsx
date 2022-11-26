@@ -28,7 +28,9 @@ const SignUp: React.FC = ({navigation}: any) => {
         email,
         password,
       })
-      .then((response) => console.log(response))
+      .then(() => {
+        navigation.goBack();
+      })
       .catch((err) => console.log(err));
   }
 

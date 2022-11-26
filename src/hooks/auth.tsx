@@ -62,6 +62,9 @@ export function AuthProvider({children}) {
         password,
       });
 
+      console.log(email, password, 'USER CREDENCIALS');
+      console.log(dataResponse, 'USER RESPONSE');
+
       const user = JSON.stringify({
         name: dataResponse.token.payload.preferred_username,
         id: dataResponse.userId,

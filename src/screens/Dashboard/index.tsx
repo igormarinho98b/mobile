@@ -56,21 +56,6 @@ const Dashboard: React.FC = () => {
 
   const navigation = useNavigation();
 
-  useEffect(() => {
-    async function fetchCategories() {
-      const {data} = await getCategories(token);
-      setCategories(data);
-    }
-    fetchCategories();
-  }, [token]);
-
-  useEffect(() => {
-    return navigation.addListener('focus', () => {
-      setBalanceDetails([]);
-      fetchBalanceDetails();
-    });
-  }, [navigation]);
-
   const handleCanSeeBalance = () => {
     setCanSeeBalance(!canSeeBalance);
   };
@@ -93,9 +78,23 @@ const Dashboard: React.FC = () => {
   }, [user.id, token]);
 
   const categoryMap = (id: string) => {
-    console.log(categories, id);
     return categories.find((category) => category.id === id)?.name;
   };
+
+  useEffect(() => {
+    async function fetchCategories() {
+      const {data} = await getCategories(token);
+      setCategories(data);
+    }
+    fetchCategories();
+  }, [token]);
+
+  useEffect(() => {
+    return navigation.addListener('focus', () => {
+      setBalanceDetails([]);
+      fetchBalanceDetails();
+    });
+  }, [navigation, fetchBalanceDetails]);
 
   useEffect(() => {
     Promise.all([
